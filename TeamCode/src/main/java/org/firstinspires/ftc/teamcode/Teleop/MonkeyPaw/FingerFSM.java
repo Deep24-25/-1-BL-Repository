@@ -18,6 +18,7 @@ public class FingerFSM {
     }
 
     private double targetAngle;
+    private double previousTargetAngle;
 
     public static double GRIPPED = 0.671;
     public static double RELEASED = 0.951;
@@ -41,6 +42,19 @@ public class FingerFSM {
     public void updateState() {
         fingerServoWrapper.readAngle();
         fingerServoWrapper.setAngle(targetAngle);
-
+        if (previousTargetAngle == targetAngle) {
+            state = FingerStates.AT_POS;
+            previousTargetAngle == targetAngle;
+        }
+        else if (targetAngle == GRIPPED) {
+            state = FingerStates.GOING_TO_POS;
+            timer.waitThreeSec();
+            state = FingerStates.AT_POS;
+        }
+        else if (targetAngle == RELEASED){
+            state = FingerStates.GOING_TO_POS;
+            timer.waitThreeSec();
+            state = FingerStates.AT_POS;
+        }
     }
 }
