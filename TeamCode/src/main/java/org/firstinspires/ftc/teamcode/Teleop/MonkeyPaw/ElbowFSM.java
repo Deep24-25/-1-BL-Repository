@@ -16,10 +16,23 @@ public class ElbowFSM {
     private AxonServoWrapper axonServoWrapper;
 
     public ElbowFSM (HWMap hwMap){
-
+    targetAngle = 0;
+    elbowStates = ElbowStates.GOING_TO_POS;
+    axonServoWrapper = new AxonServoWrapper(hwMap.getElbowServo(), hwMap.getElbowEncoder(), false, false, 0, 1);
     }
 
     public void updateState(){
+    axonServoWrapper.readPos();
+    axonServoWrapper.set(targetAngle);
+    if (targetAngle == axonServoWrapper.getLastReadPos()){
+        elbowStates = ElbowStates.AT_POS;
+    }
+    else{
+        elbowStates = ElbowStates.GOING_TO_POS;
+        }
+    }
 
+    public void setTargetAngle(int targetAngle) {
+        this.targetAngle = targetAngle;
     }
 }
