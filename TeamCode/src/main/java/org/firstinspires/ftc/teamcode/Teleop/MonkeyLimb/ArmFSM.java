@@ -4,7 +4,6 @@ import org.firstinspires.ftc.teamcode.Core.HWMap;
 import org.firstinspires.ftc.teamcode.Core.Logger;
 import org.firstinspires.ftc.teamcode.Teleop.Wrappers.ArmMotorsWrapper;
 import org.firstinspires.ftc.teamcode.Teleop.Wrappers.AxonCRServoWrapper;
-import org.firstinspires.ftc.teamcode.Teleop.Wrappers.AxonServoWrapper;
 
 public class ArmFSM {
     private enum ArmStates{
@@ -16,7 +15,6 @@ public class ArmFSM {
 
     private int targetAngle;
     private int chamberDeposit;
-    private int currentThreshold;
     private ArmStates armStates;
     private ArmMotorsWrapper armMotorsWrapper;
 
@@ -47,6 +45,7 @@ public class ArmFSM {
         }
     }
 
+    //or just do the feed method in INTO THE DEEP?
     public void setFeed(){
         RobotFSM.setArmPIDF();
     }
@@ -58,4 +57,5 @@ public class ArmFSM {
     public static double getMaxFeedrate() {
         return MAX_FEEDRATE;
     }
+
 }

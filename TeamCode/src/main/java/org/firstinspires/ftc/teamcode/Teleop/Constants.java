@@ -16,7 +16,6 @@ public class Constants {
     public static int armFeedD;
 
     public static int shoulderTargetAngle;
-    public static int shoulderP;
-    public static int shoulderI;
-    public static int shoulderD;
+    public static int pivot;
+    public static int intake;
 }
