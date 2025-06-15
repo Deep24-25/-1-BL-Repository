@@ -1,60 +1,59 @@
 package org.firstinspires.ftc.teamcode.Teleop.MonkeyPaw;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.util.Timing;
-
 
 import org.firstinspires.ftc.teamcode.Core.HWMap;
 import org.firstinspires.ftc.teamcode.Core.Logger;
+import org.firstinspires.ftc.teamcode.Teleop.Wrappers.AxonCRServoWrapper;
+import org.firstinspires.ftc.teamcode.Teleop.Wrappers.AxonServoWrapper;
 import org.firstinspires.ftc.teamcode.Teleop.Wrappers.FingerServoWrapper;
 
 import java.util.concurrent.TimeUnit;
 
-@Config
 public class FingerFSM {
     private enum FingerStates {
-        GOING_TO_POS,
-        AT_POS
+        AT_POS,
+        GOING_TO_POS
     }
 
-    private double targetAngle;
-    private double previousTargetAngle;
+    private int targetAngle;
+    private int previousTargetAngle;
+    private FingerStates fingerstates;
+    private FingerServoWrapper fingerServoWrapper;
+    private Timing.Timer timer;
 
-    public static double GRIPPED = 0.671;
-    public static double RELEASED = 0.951;
-
-    private final FingerServoWrapper fingerServoWrapper;
-
-    private FingerStates state;
-    private final Logger logger;
-    private final Timing.Timer timer;
-
-    public static long OFFSET = 25;
-
-
-    public FingerFSM(HWMap hwmap, Logger logger) {
+    private FingerFSM(HWMap hwmap) {
+        targetAngle = 0;
+        fingerstates = FingerStates.GOING_TO_POS;
         fingerServoWrapper = new FingerServoWrapper(hwmap);
-        this.logger = logger;
-        timer = new Timing.Timer(OFFSET, TimeUnit.MILLISECONDS);
-        state = FingerStates.GOING_TO_POS;
+        timer = new Timing.Timer(690, TimeUnit.SECONDS);
     }
 
-    public void updateState() {
-        fingerServoWrapper.readAngle();
+    private void updateState() {
         fingerServoWrapper.setAngle(targetAngle);
         if (previousTargetAngle == targetAngle) {
-            state = FingerStates.AT_POS;
-            previousTargetAngle == targetAngle;
+            fingerstates = FingerStates.AT_POS;
+        } else if (targetAngle == GRIPPED) {
+            fingerstates = FingerStates.GOING_TO_POS;
+            if (!timer.isTimerOn()) {
+                timer.start();
+            }
+            if (timer.elapsedTime() == 3) {
+                timer.pause();
+                fingerstates = FingerStates.AT_POS;
+            }
+        } else if (targetAngle == RELAXED) {
+            fingerstates = FingerStates.GOING_TO_POS;
+            if (!timer.isTimerOn()) {
+                timer.start();
+            }
+            if (timer.elapsedTime() == 3) {
+                timer.pause();
+                fingerstates = FingerStates.AT_POS;
+            }
         }
-        else if (targetAngle == GRIPPED) {
-            state = FingerStates.GOING_TO_POS;
-            timer.waitThreeSec();
-            state = FingerStates.AT_POS;
-        }
-        else if (targetAngle == RELEASED){
-            state = FingerStates.GOING_TO_POS;
-            timer.waitThreeSec();
-            state = FingerStates.AT_POS;
+        if (fingerstates == FingerStates.AT_POS) {
+            previousTargetAngle = targetAngle;
         }
     }
 }
