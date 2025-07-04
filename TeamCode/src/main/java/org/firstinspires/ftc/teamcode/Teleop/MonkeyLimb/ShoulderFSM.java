@@ -40,4 +40,8 @@ public class ShoulderFSM {
 
     }
 
+    public void setTargetAngle (int targetAngle){
+        this.targetAngle = targetAngle;
+    }
+
 }

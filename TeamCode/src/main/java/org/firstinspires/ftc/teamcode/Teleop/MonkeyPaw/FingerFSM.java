@@ -57,4 +57,8 @@ public class FingerFSM {
             previousTargetAngle = targetAngle;
         }
     }
+
+    public void setTargetAngle (int targetAngle){
+        this.targetAngle = targetAngle;
+    }
 }

@@ -29,20 +29,24 @@ public class ArmFSM {
             armStates = ArmStates.FEEDING;
             setFeed();
         }
-        armMotorsWrapper.readPositionInCM();
-        armMotorsWrapper.set(targetAngle);
-        if (targetAngle == chamberDeposit){
-            armStates = ArmStates.DEPOSITING_SPECIMEN;
-            if (armMotorsWrapper.getAM1Current() == 0 && armMotorsWrapper.getAM2Current() == 0 && armMotorsWrapper.getAM3Current() == 0){
+        else {
+            armMotorsWrapper.readPositionInCM();
+            armMotorsWrapper.set(targetAngle);
+            if (targetAngle == chamberDeposit) {
+                armStates = ArmStates.DEPOSITING_SPECIMEN;
+                if (armMotorsWrapper.getAM1Current() == 0 && armMotorsWrapper.getAM2Current() == 0 && armMotorsWrapper.getAM3Current() == 0) {
+                    armStates = ArmStates.AT_POS;
+                }
+            } else if (armMotorsWrapper.getLastReadPositionInCM() != targetAngle) {
+                armStates = ArmStates.GOING_TO_POS;
+            } else if (armMotorsWrapper.getLastReadPositionInCM() == targetAngle) {
                 armStates = ArmStates.AT_POS;
             }
         }
-        else if (armMotorsWrapper.getLastReadPositionInCM() != targetAngle){
-            armStates = ArmStates.GOING_TO_POS;
-        }
-        else if (armMotorsWrapper.getLastReadPositionInCM() == targetAngle){
-            armStates = ArmStates.AT_POS;
-        }
+    }
+
+    public void setTargetAngle (int targetAngle){
+        this.targetAngle = targetAngle;
     }
 
     //or just do the feed method in INTO THE DEEP?
