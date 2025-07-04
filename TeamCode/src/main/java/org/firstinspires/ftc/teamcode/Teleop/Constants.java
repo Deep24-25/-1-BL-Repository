@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode.Teleop;
 public class Constants {
 
     public static int fingerTargetAngle;
+    public static int GRIPPED;
+    public static int RELAXED;
+
     public static int deviatorTargetAngle;
     public static int elbowTargetAngle;
     public static int wristTargetAngle;

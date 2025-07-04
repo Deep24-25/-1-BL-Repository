@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.Core.Logger;
 import org.firstinspires.ftc.teamcode.Teleop.Wrappers.AxonCRServoWrapper;
 import org.firstinspires.ftc.teamcode.Teleop.Wrappers.AxonServoWrapper;
 import org.firstinspires.ftc.teamcode.Teleop.Wrappers.FingerServoWrapper;
+import org.firstinspires.ftc.teamcode.Teleop.Constants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,7 +34,7 @@ public class FingerFSM {
         fingerServoWrapper.setAngle(targetAngle);
         if (previousTargetAngle == targetAngle) {
             fingerstates = FingerStates.AT_POS;
-        } else if (targetAngle == GRIPPED) {
+        } else if (targetAngle == Constants.GRIPPED) {
             fingerstates = FingerStates.GOING_TO_POS;
             if (!timer.isTimerOn()) {
                 timer.start();
@@ -42,7 +43,7 @@ public class FingerFSM {
                 timer.pause();
                 fingerstates = FingerStates.AT_POS;
             }
-        } else if (targetAngle == RELAXED) {
+        } else if (targetAngle == Constants.RELAXED) {
             fingerstates = FingerStates.GOING_TO_POS;
             if (!timer.isTimerOn()) {
                 timer.start();
