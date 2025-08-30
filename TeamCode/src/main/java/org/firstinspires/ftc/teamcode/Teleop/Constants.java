@@ -14,11 +14,16 @@ public class Constants {
     public static int armCurrentAngle;
     public static double MAX_FEEDRATE;
     private double currentFeedrate;
-    public static int armFeedP;
-    public static int armFeedI;
-    public static int armFeedD;
+    public static int armP;
+    public static int armI;
+    public static int armD;
+    public static int armF;
 
     public static int shoulderTargetAngle;
+    public static int shoulderP;
+    public static int shoulderI;
+    public static int shoulderD;
+    public static int shoulderF;
     public static int pivot;
     public static int intake;
 }

@@ -28,7 +28,10 @@ public class MonkeyLimbFSM {
         READY_TO_INTAKE_SPECIMEN,
         READY_TO_DEPOSIT_SPECIMEN,
         PREPARING_TO_DEPOSIT_SPECIMEN,
-        DEPOSITING_SPECIMEN
+        DEPOSITING_SPECIMEN();
+
+        double armTargetAngle;
+        double shoulderTargetAngle;
     }
 
     private Mode mode;
