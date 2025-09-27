@@ -9,6 +9,8 @@ import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Teleop.MonkeyLimb.MonkeyLimbFSM;
+import org.firstinspires.ftc.teamcode.Teleop.MonkeyPaw.MonkeyPawFSM;
 import org.firstinspires.ftc.teamcode.Teleop.Monkeys_Limb.ArmFSM;
 import org.firstinspires.ftc.teamcode.Teleop.Monkeys_Limb.LimbFSM;
 import org.firstinspires.ftc.teamcode.Teleop.Monkeys_Limb.ShoulderFSM;
@@ -25,7 +27,7 @@ public class MainTeleop extends LinearOpMode {
     private GamepadEx gamePad1;
     private GamepadEx gamePad2;
     private Logger logger;
-    private LimbFSM limbFSM;
+    private MonkeyLimbFSM limbFSM;
     private MonkeyPawFSM monkeyPawFSM;
 
     private HWMap hwMap;

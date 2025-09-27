@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Teleop.MonkeyLimb;
 
 import static org.firstinspires.ftc.teamcode.Teleop.Constants.*;
+import static org.firstinspires.ftc.teamcode.Teleop.MonkeyLimb.MonkeyLimbFSM.armFSM;
 
 import com.arcrobotics.ftclib.controller.PIDFController;
 
@@ -18,7 +19,7 @@ public class ArmFSM {
         DEPOSITING_SPECIMEN
     }
 
-    private int targetAngle;
+    private double targetAngle;
     private int chamberDeposit;
     private ArmStates armStates;
     private ArmMotorsWrapper armMotorsWrapper;
@@ -52,7 +53,7 @@ public class ArmFSM {
         }
     }
 
-    public void setTargetAngle (int targetAngle){
+    public void setTargetAngle (double targetAngle){
         this.targetAngle = targetAngle;
     }
 
@@ -92,4 +93,9 @@ public class ArmFSM {
     protected static double normalizeDegrees(double angle) {
         return (angle + 360) % 360;
     }
+
+    public boolean AT_POS() {
+         return armStates == ArmStates.AT_POS;
+    }
+
 }

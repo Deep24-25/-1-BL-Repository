@@ -1,11 +1,6 @@
 package org.firstinspires.ftc.teamcode.Teleop.MonkeyLimb;
 
 import org.firstinspires.ftc.teamcode.Core.HWMap;
-import org.firstinspires.ftc.teamcode.Core.Logger;
-import org.firstinspires.ftc.teamcode.Teleop.Wrappers.AxonCRServoWrapper;
-import org.firstinspires.ftc.teamcode.Teleop.Wrappers.AxonServoWrapper;
-import org.firstinspires.ftc.teamcode.Teleop.MonkeyLimb.ArmFSM;
-import org.firstinspires.ftc.teamcode.Teleop.MonkeyLimb.ShoulderFSM;
 
 public class MonkeyLimbFSM {
 
@@ -14,30 +9,95 @@ public class MonkeyLimbFSM {
         SPECIMEN_MODE,
     }
 
-    private enum MonkeyLimbStates{
-        //Sample
-        MOVING_TO_INTAKE_SAMPLE,
-        INTAKED_SAMPLE,
-        INTAKING_SAMPLE,
-        READY_TO_INTAKE_SAMPLE,
-        PREPARING_TO_INTAKE_SAMPLE,
-        READY_TO_DEPOSIT_SAMPLE,
-        PREPARING_TO_DEPOSIT_SAMPLE,
-        //Specimen
-        PREPARING_TO_INTAKE_SPECIMEN,
-        READY_TO_INTAKE_SPECIMEN,
-        READY_TO_DEPOSIT_SPECIMEN,
-        PREPARING_TO_DEPOSIT_SPECIMEN,
-        DEPOSITING_SPECIMEN();
-
-        double armTargetAngle;
-        double shoulderTargetAngle;
-    }
-
     private Mode mode;
     private MonkeyLimbStates monkeyLimbStates;
-    private ArmFSM armFSM;
-    private ShoulderFSM shoulderFSM;
+    private static ArmFSM armFSM;
+    private final ShoulderFSM shoulderFSM;
+
+    double armTargetAngle;
+    double shoulderTargetAngle;
+
+    private enum MonkeyLimbStates{
+        //Sample
+        MOVING_TO_INTAKE_SAMPLE() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        INTAKED_SAMPLE() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        INTAKING_SAMPLE() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        READY_TO_INTAKE_SAMPLE() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        PREPARING_TO_INTAKE_SAMPLE() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        READY_TO_DEPOSIT_SAMPLE() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        PREPARING_TO_DEPOSIT_SAMPLE() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        //Specimen
+        PREPARING_TO_INTAKE_SPECIMEN() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        READY_TO_INTAKE_SPECIMEN() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        READY_TO_DEPOSIT_SPECIMEN() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        PREPARING_TO_DEPOSIT_SPECIMEN() {
+            @Override
+            public double setTargetAngle(){
+                return 0;
+            }
+        },
+        DEPOSITING_SPECIMEN() {
+            public void setTargetAngle(){
+                return targetAngle;
+            }
+        };
+        public double targetAngle;
+        public void setTargetPosition(double armPosition, double shoulderPosition){
+            armFSM.setTargetAngle(armPosition);
+            if (armFSM.;
+        }
+    }
+
 
     public MonkeyLimbFSM(ArmFSM armFSM, ShoulderFSM shoulderFSM, HWMap hwMap){
         monkeyLimbStates = MonkeyLimbStates.MOVING_TO_INTAKE_SAMPLE;
